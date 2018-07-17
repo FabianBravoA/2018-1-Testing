@@ -41,9 +41,7 @@ describe(
                             (error)=>{
                                 assert.error();
                             }
-                        ).finally(()=>{
-                            done();
-                        });
+                        ).finally(done);
                     }
                 );
             }
