@@ -1,18 +1,18 @@
 const assert = require('chai').assert;
 global.window = global;
-global.firebase = require('firebase');
-require("../src/model");
 
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyCY8nA0imj5wGhxtPOLFj0CbrFCkH_sSkM",
-    authDomain: "test-todolist-10d7b.firebaseapp.com",
-    databaseURL: "https://test-todolist-10d7b.firebaseio.com",
-    projectId: "test-todolist-10d7b",
-    storageBucket: "test-todolist-10d7b.appspot.com",
-    messagingSenderId: "552577706745"
-};
-firebase.initializeApp(config);
+const firebasemock = require('firebase-mock');
+const mockauth = new firebasemock.MockFirebase();
+const mockdatabase = new firebasemock.MockFirebase();
+mockdatabase.autoFlush();
+mockauth.autoFlush();
+
+global.firebase = firebasemock.MockFirebaseSdk(
+    path => path ? mockdatabase.child(path) : mockdatabase,
+    () => mockauth
+);
+
+require("../src/model");
 
 describe(
     "Modelo de la lista de tareas",// se empieza por lo general

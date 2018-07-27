@@ -11,5 +11,8 @@
   "dependencies": {
     "chai": "^4.1.2",
     "firebase": "^5.2.0"
+  },
+  "devDependencies": {
+    "firebase-mock": "^2.2.4"
   }
 }
